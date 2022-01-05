@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Xela: Diversify Your Reading List</title>
+
+	<!-- this is for mobile screens -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="img/favicon.png">
+
+	<!-- this is for the css files -->
+	<link rel="stylesheet" media="all" href="../component/styles/setup.css">
+	<link rel="stylesheet" media="all" href="../component/styles/says.css">
+	<link rel="stylesheet" media="all" href="../component/styles/reply.css">
+	<link rel="stylesheet" media="all" href="../component/styles/typing.css">
+  <link rel="stylesheet" media="all" href="../component/styles/input.css">
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600,700&display=swap" rel="stylesheet">
+
+  <!-- css stylesheet for the background of the web page -->
+	<style>
+	body {
+		background: #d3e8e1;
+	}
+	.bubble-container {
+		height: 100vh;
+	}
+	.bubble-container .input-wrap textarea {
+    margin: 0;
+	}
+	</style>
+</head>
+<body>
+
+<!-- header for the chatbot  -->
+<div id="chat">
+  <div class="header">
+    <img src="https://cdn.glitch.com/eb91a7ec-d0a1-4531-9d93-93e4f47ba366%2F1932.jpg?v=1621518331467" width="40px;">
+    <div>
+      <h1>Xela: A Personal Chatbot</h1>
+      <p>Helping you diversify your reading list</p>
+    </div>
+  </div>
+</div>
+
+<!-- Power the chatbot -->
+<script src="../component/js/Bubbles.js"></script>
+<script>
+var chatWindow = new Bubbles(document.getElementById("chat"), "chatWindow", {
+  inputCallbackFn: function(o) {
+
+    var match = function(key) {
+      setTimeout(function() {
+        chatWindow.talk(convo, key) // restart current convo from point found in the answer
+      }, 600)
+    }
+
+    // sanitize text for search function - for the bot
+    var strip = function(text) {
+      return text.toLowerCase().replace(/[\s.,\/#!$%\^&\*;:{}=\-_'"`~()]/g, "")
+    }
+
+    // search function -  for the bot
+    var found = false
+    o.convo[o.standingAnswer].reply.forEach(function(e, i) {
+      strip(e.human_response).includes(strip(o.input)) && o.input.length > 0
+        ? (found = e.bot_answer)
+        : found ? null : (found = false)
+    })
+    found ? match(found) : miss()
+  }
+}) // section for setting up bot is finished.
+
+
+// Chatbot Conversation Script
+var convo = {
+
+  // first section
+  intro: {
+    bot_says: ["Heya! I am a chatbot named Xela, and I am here to help you find more diverse and inclusive books for your next binge-reading session."," Would you like to know more about me?"," Please click the red bubbles throughout the experience to chat with me :)", 
+               "<img src=https://media.giphy.com/media/MWSRkVoNaC30A/giphy.gif />"],
+    human_reply: [
+      {
+        human_response: "Can we skip to book recommendations?",
+        bot_answer: "book-recs",
+      },
+      {
+        human_response: "I would love to know more about you!",
+        bot_answer: "know",
+      },
+      ]
+  },
+  
+  //second section
+
+      "know": {
+    bot_says: ["Cool! So a chatbot is a computer program created to simulate conversations with human users over the internet. I don't really have a physical form, but you can imagine me as a cute cat with suspiciously elaborate knowledge on human-written books", "I have been designed with a special set of guidelines called the &#39PIA Standards&#39 written by AI researcher, Josie Young.","These guildlines helped my designer build me while ensuring that I am mindful of being inclusive to users from all walks of life."," My main goal to achieve by the end of this experience is for you to have found a new, exciting book to read that has strong diverse characters, or books written by people from social groups whose views and narratives have been historically sidelined in popular literature.", "Did you know?: According to a 2018 study conducted by the University of Wisconsin-Madison, books for children that featured an animal as the main character were published more than books featuring a Black, Latinx, Native, or Asian child?"],
+    human_reply: [
+    
+      {
+        human_response: "That is such a shame",
+        bot_answer: "shame"
+
+      },
+      {
+        human_response: ":(",
+        bot_answer: "shame"
+
+      },
+    ]
+  },
+  
+  // third section 
+  
+  
+      "shame": {
+    bot_says: ["I feel you!"," Just a saying obviously - chatbots do not have feelings.","On that note, let's try to change this narrative by reading and promoting more diverse books!","<img src=https://media.giphy.com/media/CjmvTCZf2U3p09Cn0h/giphy.gif />", "What area of diversity in literature would you like to explore?"],
+    human_reply: [
+    {
+        human_response: "Feminism",
+        bot_answer: "feminism"
+      },
+      {
+        human_response: "Ability Differences",
+        bot_answer: "ability"
+
+      },
+      {
+        human_response: "Mental Health",
+        bot_answer: "mental"
+
+      },
+      {
+        human_response: "Race/Ethnicity",
+        bot_answer: "race"
+
+      },
+      {
+        human_response: "Gender Identity and Sexuality",
+        bot_answer: "lgbt"
+
+      },
+    ]
+  },
+  
+  // fourth section
+  
+    "book-recs": {
+    bot_says: ["Alright! What area of diversity in literature would you like to explore?"],
+    human_reply: [
+    
+      {
+        human_response: "Feminism",
+        bot_answer: "feminism"
+      },
+      {
+        human_response: "Ability Differences",
+        bot_answer: "ability"
+
+      },
+      {
+        human_response: "Mental Health",
+        bot_answer: "mental"
+
+      },
+      {
+        human_response: "Race/Ethnicity",
+        bot_answer: "race"
+
+      },
+      {
+        human_response: "Gender Identity and Sexuality",
+        bot_answer: "lgbt"
+
+      },
+    ]
+  },
+  
+  // fifth section
+  
+  "feminism": {
+    bot_says: ["Here are some books on feminism that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/22738563-we-should-all-be-feminists?ac=1&from_search=true&qid=eprhT2rhmn&rank=2 target=\"_blank\">We Should All Be Feminists</a> by Chimamanda Ngozi Adichie", "2) <a href=\https://www.goodreads.com/book/show/41104077-invisible-women?ac=1&from_search=true&qid=gigIBOqhWr&rank=1 target=\"_blank\">Invisible Women: Data Bias in a World Designed for Men</a> by Caroline Criado Perez", "3) <a href=\https://www.goodreads.com/book/show/17836520-asking-for-it?ac=1&from_search=true&qid=VwMPpGun52&rank=2 target=\"_blank\">Asking for It: The Alarming Rise of Rape Culture and What We Can Do about It</a> by Kate Harding", "4) <a href=\https://www.goodreads.com/book/show/48635408-men-who-hate-women---from-incels-to-pickup-artists?ac=1&from_search=true&qid=26OdiIjJpe&rank=1 target=\"_blank\">Men Who Hate Women - From Incels to Pickup Artists: The Truth about Extreme Misogyny and How It Affects Us All</a> by Laura Bates", "5) <a href=\https://www.goodreads.com/book/show/457264.The_Second_Sex?ac=1&from_search=true&qid=jcLvla4ANI&rank=1 target=\"_blank\">The Second Sex</a> by Simone de Beauvoir", "6) <a href=\https://www.goodreads.com/book/show/11337.The_Bluest_Eye target=\"_blank\">The Bluest Eye</a> by Toni Morrison", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // sixth section
+  
+    "end": {
+    bot_says: ["Alright! I hope you've found a book that caught your eye. Check back any time you want me to recommend you another one. Laters.", "<img src=https://media.giphy.com/media/wWqFBYUFNYGGs/giphy.gif />"],
+    human_reply: [
+    
+      {
+        human_response: "Goodbye",
+        bot_answer: "#"
+
+      },
+  
+    ]
+  },
+  
+  // seventh section
+  
+  "ability": {
+    bot_says: ["Please pick one from the options displayed below:"],
+    human_reply: [
+    
+      {
+        human_response: "Autism",
+        bot_answer: "autism"
+
+      },
+      {
+        human_response: "Dyslexia",
+        bot_answer: "dyslexia"
+
+      },
+      {
+        human_response: "Deafness",
+        bot_answer: "deaf"
+
+      },
+       {
+        human_response: "Blindness",
+        bot_answer: "blind"
+
+      },
+    ]
+  },
+  
+  // eighth section
+  
+ "autism": {
+    bot_says: ["Here are some books on autism that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/103408.Thinking_in_Pictures target=\"_blank\">Thinking in Pictures: My Life with Autism</a> by Temple Grandin", "2) <a href=\https://www.goodreads.com/book/show/5168689-anything-but-typical target=\"_blank\">Anything but Typical</a> by Nora Raleigh Baskin", "3) <a href=\https://www.goodreads.com/book/show/3700085.Marcelo_in_the_Real_World target=\"_blank\">Marcelo in the Real World</a> by Francisco X. Stork", "4) <a href=\https://www.goodreads.com/book/show/33673918-authoring-autism target=\"_blank\">Authoring Autism: On Rhetoric and Neurological Queerness</a> by Melanie Yergeau", "5) <a href=\https://www.goodreads.com/book/show/42415482-camouflage target=\"_blank\">Camouflage: The Hidden Lives of Autistic Women</a> by Sarah Bargiela", "6) <a href=\https://www.goodreads.com/book/show/25430558-in-a-different-key target=\"_blank\">In a Different Key: The Story of Autism</a> by John Donvan", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // nineth section
+  
+  "dyslexia": {
+    bot_says: ["Here are some books on dyslexia and books with strong dyslexic characters that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/22570464-you-ve-got-verve-jamie-ireland target=\"_blank\">You've Got Verve, Jamie Ireland!</a> by Lisa Otter Rose", "2) <a href=\https://www.goodreads.com/series/40736-percy-jackson-and-the-olympians target=\"_blank\">Percy Jackson and the Olympians Series</a> by Rick Riordan", "3) <a href=\https://www.goodreads.com/book/show/22402972-fish-in-a-tree target=\"_blank\">Fish in a Tree</a> by Lynda Mullaly Hunt", "4) <a href=\https://www.goodreads.com/book/show/1113753.My_Name_Is_Brain_Brian target=\"_blank\">My Name Is Brain Brian</a> by Jeanne Betancourt", "5) <a href=\https://www.goodreads.com/book/show/9897792-the-dyslexic-advantage target=\"_blank\">The Dyslexic Advantage: Unlocking the Hidden Potential of the Dyslexic Brain</a> by Brock and Fernette Eide", "6) <a href=\https://www.goodreads.com/book/show/289751.Proust_and_the_Squid target=\"_blank\">Proust and the Squid: The Story and Science of the Reading Brain</a> by Maryanne Wolf", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // tenth section
+  
+  "deaf": {
+    bot_says: ["Here are some books about deafness and books with strong deaf characters that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/40645658-song-for-a-whale target=\"_blank\">Song for a Whale</a> by Lynne Kelly", "2) <a href=\https://www.goodreads.com/book/show/118754.The_Raging_Quiet target=\"_blank\">The Raging Quiet</a> by Sherryl Jordan", "3) <a href=\https://www.goodreads.com/book/show/30197201-a-quiet-kind-of-thunder target=\"_blank\">A Quiet Kind of Thunder</a> by Sara Barnard", "4) <a href=\https://www.goodreads.com/book/show/20701984-el-deafo target=\"_blank\">El Deafo</a> by Cece Bell", "5) <a href=\https://www.goodreads.com/book/show/196560.Hurt_Go_Happy target=\"_blank\">Hurt Go Happy</a> by Ginny Rorby", "6) <a href=\https://www.goodreads.com/book/show/16205989-strong-deaf target=\"_blank\">Strong Deaf</a> by Lynn E. McElfresh", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // eleventh section 
+  
+  "blind": {
+    bot_says: ["Here are some books about blindness and books with strong blind characters that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/18143977-all-the-light-we-cannot-see target=\"_blank\">All the Light We Cannot See</a> by Anthony Doerr", "2) <a href=\https://www.goodreads.com/book/show/28186006-six-dots target=\"_blank\">Six Dots: A Story of Young Louis Braille</a> by Jen Bryant", "3) <a href=\https://www.goodreads.com/book/show/655211.Crashing_Through target=\"_blank\">Crashing Through: A True Story of Risk, Adventure, and the Man Who Dared to See</a> by Robert Kurson", "4) <a href=\https://www.goodreads.com/book/show/22701879-not-if-i-see-you-first target=\"_blank\">Not If I See You First</a> by Eric Lindstrom", "5) <a href=\https://www.goodreads.com/book/show/18404311-now-i-see-you target=\"_blank\">Now I See You: A Memoir</a> by Nicole C. Kear", "6) <a href=\https://www.goodreads.com/book/show/17839197-she-is-not-invisible target=\"_blank\">She Is Not Invisible</a> by Marcus Sedgwick", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // twelfth section
+  
+  "mental": {
+    bot_says: ["Please pick one from the options displayed below:"],
+    human_reply: [
+    
+      {
+        human_response: "Depression",
+        bot_answer: "depression"
+
+      },
+      {
+        human_response: "Bipolar Disorder",
+        bot_answer: "bipolar"
+
+      },
+      {
+        human_response: "Schizophrenia",
+        bot_answer: "paranoid"
+
+      },
+       {
+        human_response: "Anxiety Disorders",
+        bot_answer: "anxiety"
+
+      },
+      
+      {
+        human_response: "Posttraumatic Stress Disorder",
+        bot_answer: "post"
+
+      },
+      
+    {
+        human_response: "Eating Disorders",
+        bot_answer: "eat"
+
+      },
+      
+    ]
+  },
+  
+  // thirteenth section
+  
+  "depression": {
+    bot_says: ["Here are some books revolving around depression that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/25733573-reasons-to-stay-alive target=\"_blank\">Reasons to Stay Alive</a> by Matt Haig", "2) <a href=\https://www.goodreads.com/book/show/23848559-furiously-happy target=\"_blank\">Furiously Happy: A Funny Book About Horrible Things</a> by Jenny Lawson", "3) <a href=\https://www.goodreads.com/book/show/17571564-hyperbole-and-a-half target=\"_blank\">Hyperbole and a Half: Unfortunate Situations, Flawed Coping Mechanisms, Mayhem, and Other Things That Happened</a> by Allie Brosh", "4) <a href=\https://www.goodreads.com/book/show/29010395-i-am-not-your-perfect-mexican-daughter target=\"_blank\">I Am Not Your Perfect Mexican Daughter</a> by Erika L. Sánchez", "5) <a href=\https://www.goodreads.com/book/show/15764032-dr-bird-s-advice-for-sad-poets target=\"_blank\">Dr. Bird's Advice for Sad Poets</a> by Evan Roskos", "6) <a href=\https://www.goodreads.com/book/show/41057294-normal-people target=\"_blank\">Normal People</a> by Sally Rooney", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // fourteenth section
+  
+   "bipolar": {
+    bot_says: ["Here are some books about bipolar disorder that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/36434.Touched_with_Fire target=\"_blank\">Touched with Fire: Manic-Depressive Illness and the Artistic Temperament</a> by Kay Redfield Jamison", "2) <a href=\https://www.goodreads.com/book/show/361459.An_Unquiet_Mind target=\"_blank\">An Unquiet Mind: A Memoir of Moods and Madness</a> by Kay Redfield Jamison", "3) <a href=\https://www.goodreads.com/book/show/2199857.Navigating_the_Space_Between_Brillance_and_Madness target=\"_blank\">Navigating the Space Between Brillance and Madness: A Reader and Roadmap of Bipolar Worlds</a> by The Icarus Project", "4) <a href=\https://www.goodreads.com/book/show/13542990-marbles target=\"_blank\">Marbles: Mania, Depression, Michelangelo, and Me</a> by Ellen Forney", "5) <a href=\https://www.goodreads.com/book/show/4961048-wishful-drinking target=\"_blank\">Wishful Drinking</a> by Carrie Fisher", "6) <a href=\https://www.goodreads.com/en/book/show/7543670 target=\"_blank\">Welcome to the Jungle: Everything You Ever Wanted to Know About Bipolar but Were Too Freaked Out to Ask</a> by Hilary T. Smith", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // fifteenth section
+  
+  
+   "paranoid": {
+    bot_says: ["Here are some books about schizophrenia that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/17661416-made-you-up target=\"_blank\">Made You Up</a> by Francesca Zappia", "2) <a href=\https://www.goodreads.com/book/show/16120760-the-shock-of-the-fall target=\"_blank\">The Shock of the Fall</a> by Nathan Filer", "3) <a href=\https://www.goodreads.com/book/show/13912.A_Beautiful_Mind target=\"_blank\">A Beautiful Mind</a> by Sylvia Nasar", "4) <a href=\https://www.goodreads.com/book/show/8526623-henry-s-demons target=\"_blank\">Henry's Demons: Living with Schizophrenia, A Father and Son's Story</a> by Patrick and Henry Cockburn", "5) <a href=\https://www.goodreads.com/book/show/1098486.The_Center_Cannot_Hold target=\"_blank\">The Center Cannot Hold: My Journey Through Madness</a> by Elyn Saks", "6) <a href=\https://www.goodreads.com/book/show/130609.Divided_Minds target=\"_blank\">Divided Minds</a> by Pamela Spiro Wagner and Carolyn S. Spiro", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // sixteenth section
+  
+  
+   "anxiety": {
+    bot_says: ["Here are some books about anxiety that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/40404801-notes-on-a-nervous-planet target=\"_blank\">Notes on a Nervous Planet</a> by Matt Haig", "2) <a href=\https://www.goodreads.com/book/show/23305614-finding-audrey target=\"_blank\">Finding Audrey</a> by Sophie Kinsella", "3) <a href=\https://www.goodreads.com/book/show/17737025-my-age-of-anxiety target=\"_blank\">My Age of Anxiety: Fear, Hope, Dread, and the Search for Peace of Mind</a> by Scott Stossel", "4) <a href=\https://www.goodreads.com/book/show/42379022-the-bookish-life-of-nina-hill target=\"_blank\">The Bookish Life of Nina Hill</a> by Abbi Waxman", "5) <a href=\https://www.goodreads.com/book/show/10516883-monkey-mind target=\"_blank\">Monkey Mind: A Memoir of Anxiety</a> by Daniel B. Smith", "6) <a href=\https://www.goodreads.com/book/show/44270751-feeling-better target=\"_blank\">Feeling Better: CBT Workbook for Teens</a> by Rachel Hutt", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // seventeenth section
+  
+   
+   "post": {
+    bot_says: ["Here are some books about posttraumatic stress disorder that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/18693771-the-body-keeps-the-score target=\"_blank\">The Body Keeps the Score: Brain, Mind, and Body in the Healing of Trauma</a> by Bessel van der Kolk", "2) <a href=\https://www.goodreads.com/no/book/show/30753738-the-choice target=\"_blank\">The Choice: Embrace the Possible</a> by Edith Eger", "3) <a href=\https://www.goodreads.com/book/show/53238858-what-happened-to-you target=\"_blank\">What Happened To You?: Conversations on Trauma, Resilience, and Healing</a> by Bruce D. Perry and Oprah Winfrey", "4) <a href=\https://www.goodreads.com/book/show/20556323-complex-ptsd target=\"_blank\">Complex PTSD: From Surviving to Thriving</a> by Pete Walker", "5) <a href=\https://www.goodreads.com/book/show/106150.The_Haunted_Self?from_search=true&from_srp=true&qid=8iIk9mRzrn&rank=1 target=\"_blank\">The Haunted Self: Structural Dissociation and the Treatment of Chronic Traumatization</a> by Onno van der Hart", "6) <a href=\https://www.goodreads.com/book/show/354716.Allies_in_Healing target=\"_blank\">Allies in Healing: When the Person You Love Is a Survivor of Child Sexual Abuse</a> by Laura Davis", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // eighteenth section 
+  
+  "eat": {
+    bot_says: ["Here are some books about eating disorders that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/31145120-what-i-lost target=\"_blank\">What I Lost</a> by Alexandra Ballard", "2) <a href=\https://www.goodreads.com/book/show/1229080.A_Hunger_So_Wide_And_So_Deep target=\"_blank\">A Hunger So Wide And So Deep: A Multiracial View of Women's Eating Problems</a> by Becky W. Thompson", "3) <a href=\https://www.goodreads.com/en/book/show/17465514 target=\"_blank\">How to Disappear Completely: On Modern Anorexia</a> by Kelsey Osgood", "4) <a href=\https://www.goodreads.com/book/show/26074156-hunger target=\"_blank\">Hunger: A Memoir of (My) Body</a> by Roxane Gay", "5) <a href=\https://www.goodreads.com/book/show/22875391-elena-vanishing target=\"_blank\">Elena Vanishing</a> by Elena Dunkle", "6) <a href=\https://www.goodreads.com/book/show/6304777-not-all-black-girls-know-how-to-eat target=\"_blank\">Not All Black Girls Know How to Eat: A Story of Bulimia</a> by Stephanie Covington Armstrong", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // nineteenth section
+  
+    "lgbt": {
+    bot_says: ["Here are some books with strong lgbtq+ characters that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/23058402-the-art-of-being-normal?ac=1&from_search=true&qid=gzY5habt0W&rank=2 target=\"_blank\">The Art of Being Normal</a> by Lisa Williamson", "2) <a href=\https://www.goodreads.com/book/show/19547856-simon-vs-the-homo-sapiens-agenda target=\"_blank\">Simon vs. the Homo Sapiens Agenda</a> by Becky Albertalli", "3) <a href=\https://www.goodreads.com/book/show/52128695-ace target=\"_blank\">Ace: What Asexuality Reveals About Desire, Society, and the Meaning of Sex</a> by Angela Chen", "4) <a href=\https://www.goodreads.com/book/show/22896551-none-of-the-above target=\"_blank\">None of the Above</a> by I.W. Gregorio", "5) <a href=\https://www.goodreads.com/book/show/20873172-gracefully-grayson target=\"_blank\">Gracefully Grayson</a> by Ami Polonsky", "6) <a href=\https://www.goodreads.com/book/show/21969786-more-than-this target=\"_blank\">More Than This</a> by Patrick Ness", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // twenthieth section
+  
+  "race": {
+    bot_says: ["Please pick one from the options displayed below:"],
+    human_reply: [
+    
+      {
+        human_response: "Africana",
+        bot_answer: "africa"
+
+      },
+      {
+        human_response: "Asia Pacific",
+        bot_answer: "asia"
+
+      },
+       {
+        human_response: "Middle Eastern",
+        bot_answer: "middle"
+
+      },
+      
+      {
+        human_response: "Native American",
+        bot_answer: "native"
+
+      },
+      
+    {
+        human_response: "Latinx",
+        bot_answer: "latina"
+
+      },
+      
+    ]
+  },
+  
+  //  twenty first section
+  
+  
+    "africa": {
+    bot_says: ["Here are some books with strong black characters that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/35259724-behold-the-dreamers target=\"_blank\">Behold the Dreamers</a> by Imbolo Mbue", "2) <a href=\https://www.goodreads.com/book/show/27071490-homegoing target=\"_blank\">Homegoing</a> by Yaa Gyasi", "3) <a href=\https://www.goodreads.com/book/show/52892857-the-color-purple target=\"_blank\">The Colour Purple</a> by Alice Walker", "4) <a href=\https://www.goodreads.com/book/show/49397758-grown target=\"_blank\">Grown</a> by Tiffany D. Jackson", "5) <a href=\https://www.goodreads.com/book/show/151374.So_Long_a_Letter target=\"_blank\">So Long a Letter</a> by Mariama Bâ", "6) <a href=\https://www.goodreads.com/book/show/15852479-we-need-new-names target=\"_blank\">We Need New Names</a> by NoViolet Bulawayo", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // twenty second section 
+  
+  "asia": {
+    bot_says: ["Here are some books with strong asian characters that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/25489025-the-vegetarian target=\"_blank\">The Vegetarian</a> by Han Kang", "2) <a href=\https://www.goodreads.com/book/show/13707645-the-illicit-happiness-of-other-people target=\"_blank\">The Illicit Happiness of Other People</a> by Manu Joseph", "3) <a href=\https://www.goodreads.com/book/show/50144.Kitchen target=\"_blank\">Kitchen</a> by Banana Yoshimoto", "4) <a href=\https://www.goodreads.com/book/show/2154433.Evening_Is_the_Whole_Day target=\"_blank\">Evening Is the Whole Day</a> by Preeta Samarasan", "5) <a href=\https://www.goodreads.com/book/show/12384322-narcopolis target=\"_blank\">Narcopolis</a> by Jeet Thayil", "6) <a href=\https://www.goodreads.com/book/show/18693763-everything-i-never-told-you target=\"_blank\">Everything I Never Told You</a> by Celeste Ng", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // twenty third section
+  
+  "middle": {
+    bot_says: ["Here are some books with strong middle-eastern characters that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/291.The_Broken_Wings target=\"_blank\">The Broken Wings</a> by Kahlil Gibran", "2) <a href=\https://www.goodreads.com/book/show/991197.The_Complete_Persepolis target=\"_blank\">Persepolis</a> by Marjane Satrapi", "3) <a href=\https://www.goodreads.com/book/show/5499.Midaq_Alley target=\"_blank\">Midaq Alley</a> by Naguib Mahfouz", "4) <a href=\https://www.goodreads.com/book/show/40663183-to-keep-the-sun-alive target=\"_blank\">To Keep the Sun Alive</a> by Rabeah Ghaffari", "5) <a href=\https://www.goodreads.com/book/show/2517.My_Name_Is_Red target=\"_blank\">My Name Is Red</a> by Orhan Pamuk", "6) <a href=\https://www.goodreads.com/book/show/669780.Season_of_Migration_to_the_North target=\"_blank\">Season of Migration to the North</a> by Tayeb Salih", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // twenty fourth section
+  
+   
+  "native": {
+    bot_says: ["Here are some books with strong native american characters that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/165732.The_Fast_Red_Road target=\"_blank\">The Fast Red Road: A Plainsong</a> by Stephen Graham Jones", "2) <a href=\https://www.goodreads.com/book/show/693208.The_Absolutely_True_Diary_of_a_Part_Time_Indian target=\"_blank\">The Absolutely True Diary of a Part-Time Indian</a> by Sherman Alexie", "3) <a href=\https://www.goodreads.com/book/show/44094069-postcolonial-love-poem target=\"_blank\">Postcolonial Love Poem</a> by Natalie Díaz", "4) <a href=\https://www.goodreads.com/book/show/589778.Shell_Shaker target=\"_blank\">Shell Shaker</a> by LeAnne Howe", "5) <a href=\https://www.goodreads.com/book/show/36692478-there-there target=\"_blank\">There There</a> by Tommy Orange", "6) <a href=\https://www.goodreads.com/book/show/110996.House_Made_of_Dawn target=\"_blank\">House Made of Dawn</a> by N. Scott Momaday", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  // twenty fifth section
+    
+   
+  "latina": {
+    bot_says: ["Here are some books with strong latinx characters that I think you should check out!", "1) <a href=\https://www.goodreads.com/book/show/33294200-the-poet-x target=\"_blank\">The Poet X</a> by Elizabeth Acevedo", "2) <a href=\https://www.goodreads.com/book/show/45734704-the-lost-book-of-adana-moreau target=\"_blank\">The Lost Book of Adana Moreau</a> by Michael Zapata", "3) <a href=\https://www.goodreads.com/book/show/50839605-don-t-ask-me-where-i-m-from target=\"_blank\">Don't Ask Me Where I'm From</a> by Jennifer De Leon", "4) <a href=\https://www.goodreads.com/book/show/29010395-i-am-not-your-perfect-mexican-daughter target=\"_blank\">I Am Not Your Perfect Mexican Daughter</a> by Erika L. Sánchez", "5) <a href=\https://www.goodreads.com/book/show/28648863-juliet-takes-a-breath target=\"_blank\">Juliet Takes a Breath</a> by Gabby Rivera", "6) <a href=\https://www.goodreads.com/book/show/12000020-aristotle-and-dante-discover-the-secrets-of-the-universe target=\"_blank\">Aristotle and Dante Discover the Secrets of the Universe</a> by Benjamin Alire Sáenz", "Would you like to further explore other categories?"],
+    human_reply: [
+    
+      {
+        human_response: "Explore Other Categories",
+        bot_answer: "book-recs"
+      },
+      {
+        human_response: "End Conversation",
+        bot_answer: "end"
+
+      },
+    ]
+  },
+  
+  
+}
+ 
+
+chatWindow.talk(convo)
+</script>
+</body>
