@@ -21,4 +21,4 @@ aforementioned PIA Standards, with the tone of the bot being polite yet assertiv
 
 - [Live Chatbot Prototype](http://xela-chatbot.glitch.me/)
 
-Project created while on the FutureLearn Course on "Designing a Feminist Chatbot" by UAL Creative Computing Institute.
+`Project created while on the FutureLearn Course on "Designing a Feminist Chatbot" by UAL Creative Computing Institute.`
